@@ -10,15 +10,23 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     // $cpassword = $_POST["cpassword"];
    
   
-    $sql="SELECT * FROM `users`  WHERE username='$username' and password='$password'";
+    $sql="SELECT * FROM `users`  WHERE username='$username'";
     $result = mysqli_query($conn,$sql);
     $num= mysqli_num_rows($result);
     if($num==1){
+      while($row= mysqli_fetch_assoc($result)){
+       if(password_verify($password,$row['password'])){
         $login=true;
         session_start();
         $_SESSION['loggedin']=true;
         $_SESSION['username']=$username;
         header("location: welcome.php");
+       } else{
+        $showError="Invalid credentials";
+    }
+
+      }
+     
 
         // echo "your account has been created now you can log in ";
     }
@@ -40,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
-    <title>SignUp</title>
+    <title>Login</title>
   </head>
   <body>
       <?php

@@ -23,8 +23,11 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
       <?php
       require './partials/_nav.php'
       ?>
-    <h1>Welcome-<?php  echo $_SESSION['username']?></h1>
+      <div class="container text-center">
+      <h1>Welcome-<?php  echo $_SESSION['username']?></h1>
     <h2> <a href="/sidjain/LoginApp/logout.php">click this link to logout</a></h2>
+      </div>
+    
 
     <!-- Optional JavaScript; choose one of the two! -->
 

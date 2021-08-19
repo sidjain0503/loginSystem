@@ -19,7 +19,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }else{
       $exists=false;   
     if($password == $cpassword){
-    $sql="INSERT INTO `users` ( `username`, `password`,`datetime`) VALUES ( '$username', '$password', current_timestamp())";
+      $hash= password_hash($password, PASSWORD_DEFAULT);
+    $sql="INSERT INTO `users` ( `username`, `password`,`datetime`) VALUES ( '$username', '$hash', current_timestamp())";
     $result = mysqli_query($conn,$sql);
               if($result){
                   $showAlert=true;
@@ -70,16 +71,16 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
   <form action="/sidjain/LoginApp/signup.php" method="post">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Username</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+    <input type="text" maxlength="11" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
    
   </div>
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password"   name="password">
+    <input type="password"  maxlength="23" class="form-control" id="password"   name="password">
   </div>
   <div class="mb-3">
     <label for="cpassword" class="form-label">Confirm Password</label>
-    <input type="password" class="form-control" id="cpassword"  name="cpassword">
+    <input type="password" maxlength="23" class="form-control" id="cpassword"  name="cpassword">
   </div>
   <div id="emailHelp" class="form-text my-2">Make sure you write same password</div>
   
